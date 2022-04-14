@@ -175,6 +175,7 @@ func newDialScheduler(config dialConfig, it enode.Iterator, setupFunc dialSetupF
 		addPeerCh:   make(chan *conn),
 		remPeerCh:   make(chan *conn),
 	}
+	log.Info("MHI--DEBUG ", d.peers)
 	d.lastStatsLog = d.clock.Now()
 	d.ctx, d.cancel = context.WithCancel(context.Background())
 	d.wg.Add(2)
@@ -235,6 +236,7 @@ func (d *dialScheduler) loop(it enode.Iterator) {
 
 loop:
 	for {
+		//log.Info("MHI-1 DEBUG ", len(d.peers))
 		// Launch new dials if slots are available.
 		slots := d.freeDialSlots()
 		slots -= d.startStaticDials(slots)
